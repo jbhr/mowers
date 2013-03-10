@@ -12,24 +12,35 @@ import com.karakoum.mowers.domain.roundorders.RoundOrders;
 @Repository
 public class RoundOrdersDaoMongoDbImpl extends BaseDaoMongo implements RoundOrdersDao {
 	
+	
+	public RoundOrdersDaoMongoDbImpl() {
+		super();
+		collectionName = "roundorders"; //Default collection name 
+	}
+	
+	public RoundOrdersDaoMongoDbImpl(String collectionName) {
+		super();
+		this.collectionName = collectionName;
+	}
+	
 	@Override
 	public RoundOrders findById(String objectId) {
 		MongoOperations mongoOperation = getMongoOperations();
-		RoundOrders savedRoundOrders = mongoOperation.findById(objectId, RoundOrders.class, "roundorders");
+		RoundOrders savedRoundOrders = mongoOperation.findById(objectId, RoundOrders.class, collectionName);
 		return savedRoundOrders;
     }
 	
 	@Override
 	public List<RoundOrders> findAll() {
 		MongoOperations mongoOperation = getMongoOperations();
-		List<RoundOrders> savedRoundOrders = mongoOperation.findAll(RoundOrders.class, "roundorders");
+		List<RoundOrders> savedRoundOrders = mongoOperation.findAll(RoundOrders.class, collectionName);
 		return savedRoundOrders;
     }
 	
 	@Override
 	public void saveOrUpdate(RoundOrders roundorders) {
 		MongoOperations mongoOperation = getMongoOperations();
-		mongoOperation.save(roundorders, "roundorders");
+		mongoOperation.save(roundorders, collectionName);
 	}
 	
 	
@@ -37,6 +48,6 @@ public class RoundOrdersDaoMongoDbImpl extends BaseDaoMongo implements RoundOrde
 	public void deleteById(String objectId) {
 		MongoOperations mongoOperation = getMongoOperations();
 		RoundOrders roundorders = findById(objectId);
-		mongoOperation.remove(roundorders, "roundorders");
+		mongoOperation.remove(roundorders, collectionName);
 	}
 }

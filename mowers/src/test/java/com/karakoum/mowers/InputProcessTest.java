@@ -185,7 +185,6 @@ public class InputProcessTest {
 		
 		// Test mouvements première tondeuse
 		Unit mower1 = units_and_orders.get(0).getUnit();
-		unitService.saveOrUpdate(mower1);
 		
 		ArrayList<Character> mower1_orders = units_and_orders.get(0).getOrders();
 		surfaceService.putUnitOnSurface(surface, mower1, mower1.getPositionX(), mower1.getPositionY(), mower1.getOrientationIndice());

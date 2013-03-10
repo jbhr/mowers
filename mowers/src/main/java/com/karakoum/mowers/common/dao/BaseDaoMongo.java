@@ -11,11 +11,30 @@ public class BaseDaoMongo {
 	
 	protected static Logger log = Logger.getLogger(Mowers.class.getName());
 	
+	protected String collectionName;
+	
+	public String getCollectionName() {
+		return collectionName;
+	}
+
+	public void setCollectionName(String collectionName) {
+		this.collectionName = collectionName;
+	}
+
 	@Autowired
     private MongoOperations mongoOperation;
     
     public MongoOperations getMongoOperations() {
     	return mongoOperation;
+    }
+    
+    /**
+     * On donne la possibilité de modifier l'instance de mongoOperation
+     * Utilisé dans le cadre des tests unitaires  
+     * @return
+     */
+    protected void setMongoOperations(MongoOperations mongoOperation) {
+    	this.mongoOperation = mongoOperation;
     }
     
 }

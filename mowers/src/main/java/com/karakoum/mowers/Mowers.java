@@ -39,11 +39,14 @@ public class Mowers {
 	 */
 	public static void main (String[] args){
 		
+		String input_filename = "input.txt";
+		
 		if (args.length == 0) {
-			System.out.println("Merci de specifier le nom du fichier d'entree en arguement (eg: input.txt)");
-			return;
+			log.info("Aucun nom de fichier spécifié en paramètre, utilisation du fichier par défaut input.txt)"); 
+		} else {
+			input_filename = args[0];
 		}
-		String input_filename = args[0];
+		
 		if (input_filename.length() > 0) {
 			
 			// Ouverture du fichier d'entrée

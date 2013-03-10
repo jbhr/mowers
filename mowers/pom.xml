@@ -51,8 +51,8 @@
 			<artifactId>spring-test</artifactId>
 			<version>2.5.4</version>
 		</dependency>
-		
-		
+
+
 
 		<!-- Mongo DB -->
 		<dependency>
@@ -66,7 +66,7 @@
 			<artifactId>spring-data-mongodb</artifactId>
 			<version>1.0.4.RELEASE</version>
 		</dependency>
-		
+
 		<!-- need this for @Configuration -->
 		<dependency>
 			<groupId>cglib</groupId>
@@ -81,7 +81,8 @@
 			<version>4.4</version>
 			<scope>test</scope>
 		</dependency>
-
+		
+				
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
@@ -99,26 +100,29 @@
 			<version>1.2.16</version>
 		</dependency>
 
-		  <dependency>
+		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
 			<version>2.5</version>
 			<scope>provided</scope>
-		  </dependency>
+		</dependency>
+
+
 	</dependencies>
-	
+
 	<build>
 		<plugins>
 			<plugin>
-		         <groupId>org.codehaus.mojo</groupId>
-		         <artifactId>tomcat-maven-plugin</artifactId>
-		         <configuration>
-		            <server>localhost</server>
-		            <!-- Tomcat 7 a modifié l'url du deploy (/html): il faut donc spécifier cette url pour maven  -->
-		            <url>http://localhost:8080/manager/text</url>
-		            
-		         </configuration>
-	        </plugin>        
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>tomcat-maven-plugin</artifactId>
+				<configuration>
+					<server>localhost</server>
+					<!-- Tomcat 7 a modifié l'url du deploy (/html): il faut donc spécifier 
+						cette url pour maven -->
+					<url>http://localhost:8080/manager/text</url>
+
+				</configuration>
+			</plugin>
 			<!-- Maven compiler plugin -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -129,18 +133,19 @@
 					<target>1.6</target>
 				</configuration>
 			</plugin>
-			
-			<!--  Pour éviter l'avertissement: [WARNING] Warning: selected war files include a WEB-INF/web.xml which will be ignored */ -->
+
+			<!-- Pour éviter l'avertissement: [WARNING] Warning: selected war files 
+				include a WEB-INF/web.xml which will be ignored */ -->
 			<plugin>
-	            <artifactId>maven-war-plugin</artifactId>
-	            <version>2.1.1</version>
-	            <configuration>
-	                <packagingExcludes>WEB-INF/web.xml</packagingExcludes>
-	            </configuration>
-	        </plugin>
-	        
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.1.1</version>
+				<configuration>
+					<packagingExcludes>WEB-INF/web.xml</packagingExcludes>
+				</configuration>
+			</plugin>
+
 		</plugins>
-		
-		
+
+
 	</build>
 </project>

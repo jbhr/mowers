@@ -14,24 +14,35 @@ import com.karakoum.mowers.domain.surface.impl.Surface;
 @Repository
 public class SurfaceDaoMongoDbImpl extends BaseDaoMongo implements SurfaceDao {
 	
+	public SurfaceDaoMongoDbImpl() {
+		super();
+		collectionName = "surfaces"; //Default collection name 
+	}
+	
+	
+	public SurfaceDaoMongoDbImpl(String collectionName) {
+		super();
+		this.collectionName = collectionName;
+	}
+	
 	@Override
 	public Surface findById(String objectId) {
 		MongoOperations mongoOperation = getMongoOperations();
-		Surface savedSurface = mongoOperation.findById(objectId, Surface.class, "surfaces");
+		Surface savedSurface = mongoOperation.findById(objectId, Surface.class, collectionName);
 		return savedSurface;
     }
 	
 	@Override
 	public List<Surface> findAll() {
 		MongoOperations mongoOperation = getMongoOperations();
-		List<Surface> savedSurfaces = mongoOperation.findAll(Surface.class, "surfaces");
+		List<Surface> savedSurfaces = mongoOperation.findAll(Surface.class, collectionName);
 		return savedSurfaces;
     }
 	
 	@Override
 	public void saveOrUpdate(Surface surfaces) {
 		MongoOperations mongoOperation = getMongoOperations();
-		mongoOperation.save(surfaces, "surfaces");
+		mongoOperation.save(surfaces, collectionName);
 	}
 	
 	
@@ -42,7 +53,7 @@ public class SurfaceDaoMongoDbImpl extends BaseDaoMongo implements SurfaceDao {
 		Surface surface = findById(objectId);
 		if (surface != null) {
 			//mongoOperation.remove(new Query(Criteria.where("id").is(surface.getId())), "surfaces");
-			mongoOperation.remove(surface, "surfaces");
+			mongoOperation.remove(surface, collectionName);
 		}
 	}
 	
@@ -50,7 +61,7 @@ public class SurfaceDaoMongoDbImpl extends BaseDaoMongo implements SurfaceDao {
 	public List<Surface> findAllByName(String name) {
 		MongoOperations mongoOperation = getMongoOperations();
 		List<Surface> surfaces = mongoOperation.find(new Query(Criteria
-				.where("name").is(name)), Surface.class, "surfaces" );
+				.where("name").is(name)), Surface.class, collectionName);
 		return surfaces;
 	}
 }
