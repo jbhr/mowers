@@ -54,6 +54,12 @@ Après traitement de ce fichier par l'application, et exécution des ordres de dép
 Tondeuse 1: coordonnées=(2,2) orientation='E'
 Tondeuse 2: coordonnées=(6,5) orientation='E'
 
+Les beans domaine
+------------------
+Surface (abstract), SurfaceRectangulaire, Jardin: représentation de la surface sur laquelle évoluent les unités
+Unit (abstract), Mower: les unités mobile, dont les tondeuses
+RoundOrders: entité regroupant une surfaces, les unités qui s'y trouvent et une série de mouvements unitaires sur chacune des unités
+ 
 
 Installation et lancement de l'application
 -------------------------------------------
@@ -69,13 +75,18 @@ mowers/src/main/config. Ce fichier contient les instructions d'entrées telles qu
 Par défault il s'agit du fichier input.txt
  
 
+Coté MCV, des méthodes REST sont disponibles pour les Surfaces et les Unités
+Pour tester le controller Surface controller, à partir du plugin firefox Mozilla Rest Client, par exemple:
+Test du GET: http://localhost:8080/mowers/rest/surface
+Test du POST: http://localhost:8080/mowers/rest/surface avec le body {"id": "", "name":"Mon petit jardin","mWidth":5,"mHeight":6} 
+Test du GET: http://localhost:8080/mowers/rest/surface
+Test du GET: http://localhost:8080/mowers/rest/surface 
 
-Considérations techniques 
--------------------------
+@TODO: écrire une application cliente, sous Angular.js
 
 
-
-Difficultés rencontrées:
+Considérations techniques - difficultés rencontrées
+----------------------------------------------------
 
 Tests unitaires des fonctions CRUD sur les entités Surface, Unit et RoundOrders:
 ces tests sont regroupés dans la classe MowersDbTest. Afin de pouvoir les lancer sans avoir installé (ou lancé) le serveur MongoDb,
@@ -102,7 +113,7 @@ Après avoir tout essayé, j'ai fini par découvrir qu'il s'agit bien d'un bug (htt
    
 
 Déployement avec le plugin tomcat-maven-plugin:
-Grosse difficultés: url deployement modifiée sur Tomcam 7 (http://localhost:8080/manager/text)
+difficultés: url de deployement modifiée sur Tomcam 7 (http://localhost:8080/manager/text au lieu de http://localhost:8080/manager)
 Credential doivent être dans .m2/settings.xml (ceux dans le fichier config/settings.xml du répertoire d'installation de Maven ne semble pas pris en compte)
 Dans tomcat-users.xml, les droits sont: <user username="admin" password="admin" roles="manager-script,manager-gui"/>
 Attention a garder le meme nom de serveur entre settings.xml et le pom.xml  
