@@ -78,9 +78,9 @@ Par défault il s'agit du fichier input.txt
 Coté MCV, des méthodes REST sont disponibles pour les Surfaces et les Unités
 Pour tester le controller Surface controller, à partir du plugin firefox Mozilla Rest Client, par exemple:
 Test du GET: http://localhost:8080/mowers/rest/surface
-Test du POST: http://localhost:8080/mowers/rest/surface avec le body {"id": "", "name":"Mon petit jardin","mWidth":5,"mHeight":6} 
-Test du GET: http://localhost:8080/mowers/rest/surface
-Test du GET: http://localhost:8080/mowers/rest/surface 
+Test du POST: http://localhost:8080/mowers/rest/surface avec le body {"name":"Mon petit jardin","mWidth":5,"mHeight":6} et les 2 headers "Content-Type: application/json", "charset: utf-8"
+Test du PUT: http://localhost:8080/mowers/rest/surface/[objectID] avec le body {"name":"Mon nouveau petit jardin","mWidth":7,"mHeight":6} et les 2 headers "Content-Type: application/json", "charset: utf-8"
+Test du DELETE: http://localhost:8080/mowers/rest/surface/[objectID]
 
 @TODO: écrire une application cliente, sous Angular.js
 
@@ -117,6 +117,16 @@ difficultés: url de deployement modifiée sur Tomcam 7 (http://localhost:8080/man
 Credential doivent être dans .m2/settings.xml (ceux dans le fichier config/settings.xml du répertoire d'installation de Maven ne semble pas pris en compte)
 Dans tomcat-users.xml, les droits sont: <user username="admin" password="admin" roles="manager-script,manager-gui"/>
 Attention a garder le meme nom de serveur entre settings.xml et le pom.xml  
+
+
+Test des méthodes REST avec l'extension Mozilla REST client: fonctionnement de la méthode POST
+POST avec un enregistrement au format JSon: "415 Type de Support Non Supporté", "405 - Request method 'POST' not supported": il ne faut pas oublier de précier les headers suivants:
+  Content-Type: application/json
+  charset: utf-8
+
+No suitable constructor found for type [simple type, class ] (dans les logs): apparemment il faut absolument un constructeur par défaut, sans paramètres.
+
+http://blog.springsource.com/2009/03/08/rest-in-spring-3-mvc/
 
 Reste à faire
 --------------
