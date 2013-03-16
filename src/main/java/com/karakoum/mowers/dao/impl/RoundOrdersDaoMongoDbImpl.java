@@ -3,11 +3,14 @@ package com.karakoum.mowers.dao.impl;
 import java.util.List;
 
 import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
 import com.karakoum.mowers.common.dao.BaseDaoMongo;
 import com.karakoum.mowers.dao.RoundOrdersDao;
 import com.karakoum.mowers.domain.roundorders.RoundOrders;
+import com.karakoum.mowers.domain.unit.impl.Unit;
 
 @Repository
 public class RoundOrdersDaoMongoDbImpl extends BaseDaoMongo implements RoundOrdersDao {
@@ -47,7 +50,6 @@ public class RoundOrdersDaoMongoDbImpl extends BaseDaoMongo implements RoundOrde
 	@Override
 	public void deleteById(String objectId) {
 		MongoOperations mongoOperation = getMongoOperations();
-		RoundOrders roundorders = findById(objectId);
-		mongoOperation.remove(roundorders, collectionName);
+		mongoOperation.findAndRemove(new Query(Criteria.where("id").is(objectId)), RoundOrders.class, collectionName);
 	}
 }

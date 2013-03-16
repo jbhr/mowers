@@ -2,12 +2,12 @@ package com.karakoum.mowers;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -15,7 +15,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.data.mongodb.core.MongoOperations;
-import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -97,8 +96,7 @@ public class MowersDbTest {
 		surfaceDao.deleteById(surfaceID);
 		surface = null;
 		surface = surfaceDao.findById(surfaceID);
-		// assertNull("La suppression de la surface d'identifiant "+surface.getId()+" à échouée (l'enregistrement existe toujours)",
-		// surface);
+		assertNull("La suppression de la surface d'identifiant "+surfaceID+" à échouée (l'enregistrement existe toujours)", surface);
 		/**
 		 * Test échoue actuellement: le remove ne fonctionne pas dans la release
 		 * 1.0 de Spring Data Mongo cf
@@ -124,8 +122,7 @@ public class MowersDbTest {
 		unitDao.deleteById(unitID);
 		unit = null;
 		unit = unitDao.findById(unitID);
-		// assertNull("La suppression de l'unité d'identifiant "+unit.getId()+" à échouée (l'enregistrement existe toujours)",
-		// unit);
+		assertNull("La suppression de l'unité d'identifiant "+unitID+" à échouée (l'enregistrement existe toujours)", unit);
 		/**
 		 * Test échoue actuellement: le remove ne fonctionne pas dans la release
 		 * 1.0 de Spring Data Mongo cf
@@ -172,8 +169,7 @@ public class MowersDbTest {
 		roundOrdersDao.deleteById(roundOrdersID);
 		roundorders = null;
 		roundorders = roundOrdersDao.findById(roundOrdersID);
-		// assertNull("La suppression des ordres d'identifiant "+roundOrdersID+" à échouée (l'enregistrement existe toujours)",
-		// roundorders);
+		assertNull("La suppression des ordres d'identifiant "+roundOrdersID+" à échouée (l'enregistrement existe toujours)", roundorders);
 		/**
 		 * Test échoue actuellement: le remove ne fonctionne pas dans la release
 		 * 1.0 de Spring Data Mongo cf

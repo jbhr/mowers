@@ -3,10 +3,13 @@ package com.karakoum.mowers.dao.impl;
 import java.util.List;
 
 import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
 import com.karakoum.mowers.common.dao.BaseDaoMongo;
 import com.karakoum.mowers.dao.UnitDao;
+import com.karakoum.mowers.domain.surface.impl.Surface;
 import com.karakoum.mowers.domain.unit.impl.Unit;
 
 @Repository
@@ -56,7 +59,6 @@ public class UnitDaoMongoDbImpl extends BaseDaoMongo implements UnitDao {
 	@Override
 	public void deleteById(String objectId) {
 		MongoOperations mongoOperation = getMongoOperations();
-		Unit unit = findById(objectId);
-		mongoOperation.remove(unit, collectionName);
+		mongoOperation.findAndRemove(new Query(Criteria.where("id").is(objectId)), Unit.class, collectionName);
 	}
 }

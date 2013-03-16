@@ -67,9 +67,11 @@ L'application Mowers est réalisé sous Maven2, elle peut donc être installée de m
 	mvn install 
 dans le répertoire du projet.
 
-Mowers utilise Spring MVC, c'est une application web. Cependant, l'interface n'est pas encore finalisée, et ne permet pas encore de l'utiliser.
+Mowers utilise Spring MVC, avec des controlleurs pour les Surfaces, les Unités, les RoundOrders.
+Le déployment sous un serveur Tomcat local peut se faire avec la commande:
+	mvn tomcat:deploy (ou mvn tomcat:redeploy)
 
-En revanche des tests unitaires sont écrits, que l'on peut lancer à l'aide d'eclipse ('Run configuration' de type JUnit) ou de maven (mvn test).
+Des tests unitaires sont écrits, que l'on peut lancer à l'aide d'eclipse ('Run configuration' de type JUnit) ou de maven (mvn test).
 La lancement de l'application sous eclipse ou en ligne de commande prend en argument un nom de fichier qui doit se situer dans le dossier
 mowers/src/main/config. Ce fichier contient les instructions d'entrées telles que définies ci-dessus.
 Par défault il s'agit du fichier input.txt
@@ -78,9 +80,14 @@ Par défault il s'agit du fichier input.txt
 Coté MCV, des méthodes REST sont disponibles pour les Surfaces et les Unités
 Pour tester le controller Surface controller, à partir du plugin firefox Mozilla Rest Client, par exemple:
 Test du GET: http://localhost:8080/mowers/rest/surface
-Test du POST: http://localhost:8080/mowers/rest/surface avec le body {"name":"Mon petit jardin","mWidth":5,"mHeight":6} et les 2 headers "Content-Type: application/json", "charset: utf-8"
-Test du PUT: http://localhost:8080/mowers/rest/surface/[objectID] avec le body {"name":"Mon nouveau petit jardin","mWidth":7,"mHeight":6} et les 2 headers "Content-Type: application/json", "charset: utf-8"
+Test du POST: http://localhost:8080/mowers/rest/surface avec le body {"type":"jardin","name":"Mon petit jardin","mWidth":5,"mHeight":6} et les 2 headers "Content-Type: application/json", "charset: utf-8"
+Test du PUT: http://localhost:8080/mowers/rest/surface/[objectID] avec le body {"type":"jardin","name":"Mon nouveau petit jardin","mWidth":7,"mHeight":6} et les 2 headers "Content-Type: application/json", "charset: utf-8"
 Test du DELETE: http://localhost:8080/mowers/rest/surface/[objectID]
+
+Test du GET: http://localhost:8080/mowers/rest/unit
+Test du POST: http://localhost:8080/mowers/rest/unit avec le body {"type":"mower","name":"Ma tondeuse"} et les 2 headers "Content-Type: application/json", "charset: utf-8"
+Test du PUT: http://localhost:8080/mowers/rest/unit/[objectID] avec le body {"type":"mower","name":"Ma tondeuse nouveau nom"} et les 2 headers "Content-Type: application/json", "charset: utf-8"
+Test du DELETE: http://localhost:8080/mowers/rest/unit/[objectID]
 
 @TODO: écrire une application cliente, sous Angular.js
 
@@ -110,7 +117,7 @@ Supression d'un élément dans mongoDB:
 en réalisant mes test unitaires, j'ai constaté que la méthode remove de mongoDB ne fonctionnait pas:
   mongoOperation.remove(surface, "surfaces");
 Après avoir tout essayé, j'ai fini par découvrir qu'il s'agit bien d'un bug (https://jira.springsource.org/browse/DATAMONGO-346). Visiblement il sera corrigé dans la prochaine release de Spring Data Mongo... tant mieux !  
-   
+16/03/2013: Corrigé en utilisant la méthode MongoTemplate.findAndRemove
 
 Déployement avec le plugin tomcat-maven-plugin:
 difficultés: url de deployement modifiée sur Tomcam 7 (http://localhost:8080/manager/text au lieu de http://localhost:8080/manager)

@@ -29,8 +29,6 @@ public class UnitController extends BaseController {
 		@Autowired 
 	    UnitService unitService;
 		
-		Unit unit;
-		
 		public UnitService getUnitService() {
 			return unitService;
 		}
@@ -39,23 +37,30 @@ public class UnitController extends BaseController {
 			this.unitService = unitService;
 		}
 		
-	    @RequestMapping(value = "/unit", method = RequestMethod.GET, produces = "application/json")
+	    @RequestMapping(method = RequestMethod.GET, produces = "application/json")
 	    public @ResponseBody List<Unit> list() {
 	    	return unitService.findAll();
 	    }
 
-	    @RequestMapping(value = "/unit/{id}", method = RequestMethod.GET, produces = "application/json")
+	    @RequestMapping(value = "{objectId}", method = RequestMethod.GET, consumes="application/json", produces = "application/json")
 	    public @ResponseBody Unit getById(@PathVariable String objectId) {
 	    	return unitService.findById(objectId);
 	    }
+	    
+	    @RequestMapping(value = "{objectId}", method = RequestMethod.PUT, consumes="application/json")
+	    @ResponseStatus(HttpStatus.NO_CONTENT)
+	    public void update(@PathVariable String objectId,@RequestBody Unit unit) {
+	    	unit.setId(objectId);
+	    	unitService.saveOrUpdate(unit);
+	    }
 
-	    @RequestMapping(value = "/unit", method = RequestMethod.PUT)
+	    @RequestMapping(method = RequestMethod.POST, consumes="application/json")
 	    @ResponseStatus(HttpStatus.NO_CONTENT)
 	    public void create(@RequestBody Unit unit) {
 	    	unitService.saveOrUpdate(unit);
 	    }
-
-	    @RequestMapping(value = "/unit/{id}", method = RequestMethod.DELETE)
+	    
+	    @RequestMapping(value = "{objectId}", method = RequestMethod.DELETE)
 	    @ResponseStatus(HttpStatus.NO_CONTENT)
 	    public void delete(@PathVariable String objectId) {
 	    	unitService.deleteById(objectId);

@@ -11,7 +11,9 @@ public class Jardin extends SurfaceRectangulaire implements Serializable {
 	
 	private static final long serialVersionUID = 354054054066L;
 	
-	
+	/**
+	 * Dummy constructor, nécessaire pour la conversion JSON / Objet avec Jackson 
+	 */
 	public Jardin() {
 		super("", 0, 0);
 	}
@@ -19,6 +21,7 @@ public class Jardin extends SurfaceRectangulaire implements Serializable {
 	@PersistenceConstructor
 	public Jardin(String name, int mWidth, int mHeight) {
 		super(name, mWidth, mHeight);
+		type = "jardin";
 	}
 	
 	

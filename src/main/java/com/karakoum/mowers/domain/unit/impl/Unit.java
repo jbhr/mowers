@@ -3,6 +3,8 @@ package com.karakoum.mowers.domain.unit.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.codehaus.jackson.annotate.JsonSubTypes;
+import org.codehaus.jackson.annotate.JsonTypeInfo;
 import org.springframework.data.annotation.Id;
 
 import com.karakoum.mowers.domain.surface.impl.Surface;
@@ -18,10 +20,16 @@ import com.karakoum.mowers.exception.MowersException;
  * @author Jean-Baptiste
  *
  */
+
+@JsonTypeInfo(use=JsonTypeInfo.Id.NAME, include=JsonTypeInfo.As.PROPERTY, property="type")
+@JsonSubTypes({
+      @JsonSubTypes.Type(value=Mower.class, name="mower")
+  }) 
 public abstract class Unit  {
 	@Id
 	protected String id;
 	
+	protected String type;
 	protected String name;
 	protected int positionX;
 	protected int positionY;
@@ -32,6 +40,10 @@ public abstract class Unit  {
 	protected List<Character> moveOrdersAvailable;
 	
 	protected Surface surface;
+	
+	public Unit() {
+		this("");
+	}
 	
 	public Unit(String name) {
 		surface = null;
@@ -55,7 +67,16 @@ public abstract class Unit  {
 	public String getId() {
 		return id;
 	}
+	public void setId(String id) {
+		this.id = id;
+	}
 	
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
 	public String getName() {
 		return name;
 	}

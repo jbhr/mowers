@@ -20,7 +20,13 @@ public class Mower extends Unit implements Serializable {
 	
 	private static final long serialVersionUID = 354054054054L;
 	
-	
+	/**
+	 * Dummy constructor, nécessaire pour la conversion JSON / Objet avec Jackson 
+	 */
+    public Mower (){
+    	this("");
+    }
+
 	public Mower(String name, int orig_x, int orig_y, char orig_orientation_as_char) {
 		this(name);
 		this.positionX = orig_x;
@@ -31,6 +37,7 @@ public class Mower extends Unit implements Serializable {
 	@PersistenceConstructor
 	public Mower(String name) {
 		super(name);
+		type = "mower";
 	}
 	
 	

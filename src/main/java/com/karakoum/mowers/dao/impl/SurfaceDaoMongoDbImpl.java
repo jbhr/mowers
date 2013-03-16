@@ -50,11 +50,7 @@ public class SurfaceDaoMongoDbImpl extends BaseDaoMongo implements SurfaceDao {
 	@Override
 	public void deleteById(String objectId) {
 		MongoOperations mongoOperation = getMongoOperations();
-		Surface surface = findById(objectId);
-		if (surface != null) {
-			//mongoOperation.remove(new Query(Criteria.where("id").is(surface.getId())), "surfaces");
-			mongoOperation.remove(surface, collectionName);
-		}
+		mongoOperation.findAndRemove(new Query(Criteria.where("id").is(objectId)), Surface.class, collectionName);
 	}
 	
 	@Override

@@ -5,7 +5,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.PersistenceConstructor;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.karakoum.mowers.common.util.UnitOrders;
@@ -38,6 +37,9 @@ public class RoundOrders implements Iterable<UnitOrders>{
 
 	public String getId() {
 		return id;
+	}
+	public void setId(String objectId) {
+		this.id = objectId;
 	}
 	
 	public Surface getSurface() {

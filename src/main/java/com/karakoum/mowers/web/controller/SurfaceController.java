@@ -32,8 +32,6 @@ public class SurfaceController extends BaseController {
 		@Autowired 
 	    SurfaceService surfaceService;
 		
-		Surface surface;
-		
 		public SurfaceService getSurfaceService() {
 			return surfaceService;
 		}
