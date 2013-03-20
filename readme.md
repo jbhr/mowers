@@ -5,14 +5,14 @@ Application serveur REST avec Spring MVC & MongoDB
 Jean-Baptiste HUNTZINGER, 2013
 
 ##Présentation du projet Mowers##
-Le projet "Mowers" (= tondeuses en français) est inspirée du test d'entretien technique d'une société de conseil, dans le cadre d'un recrutement pour un poste< d'architecte J2EE.
+Le projet "Mowers" (= tondeuses en français) est inspiré du test d'entretien technique d'une société de conseil, dans le cadre d'un recrutement pour un poste d'architecte J2EE.
 Pour la petite histoire j'ai réalisé le test très (trop) rapidement, et je n'ai pas pu continuer le processus d'entretien...
-Mais le correcteur m'ayant fait des remarques précises sur ce qui n'allait pas, j'ai décidé de réécrire ce test en élargissant les spécifications d'origine et en profitant de l'occasion pour utiliser des outils open source actuels: Spring Source (le framework que j'avais déjà utilisé, mais en 2005 !), MongoDB (Base de donnée NoSQL orientée documents éditée par une société américaine: 10gen) et angular.js coté client (Google, framework javacript).
-L'objectif pragmatique étant de préparer mes entretiens suivants avec une référence récente sur ces technologies.
+Mais le correcteur m'ayant fait des remarques précises sur ce qui n'allait pas, j'ai décidé de réécrire ce test en élargissant les spécifications d'origine et en profitant de l'occasion pour utiliser plusieurs outils open source: Spring Source (le framework que j'avais déjà utilisé, mais en 2005 !), MongoDB (Base de donnée NoSQL orientée documents éditée par une société américaine: 10gen) et angular.js coté client (Google, framework javacript).
+L'objectif étant de me rendre ré-opérationnel sur Java et le framework Spring après quelques années de PHP, et de  mieux préparer mes entretiens suivants avec une référence récente sur ces technologies.
 
 
 ##Les spécifications
-Il s'agit de simuler le déplacement d'unités mobile (des tondeuses, dans un premier temps) sur une surface (un jardin rectangulaire,
+Il s'agit de simuler le déplacement d'unités mobiles (des tondeuses, dans un premier temps) sur une surface (un jardin rectangulaire,
 toujours dans un premier temps).
 
 Pour expliquer simplement le but du projet, on part du cas le plus simple qui est traité par l'application: une surface rectangulaire que l'on appelle le jardin,
@@ -64,23 +64,37 @@ Le domaine est composé de 3 types d'entités (en italique, les classes abstrait
 - **RoundOrders**: entité regroupant une surfaces, les unités qui s'y trouvent et une série de mouvements unitaires sur chacune des unités
 
 
-##Installation et lancement de l'application##
-L'application Mowers est réalisé sous Maven2, elle peut donc être installée de manière simple par exemple et saisissant la ligne de commandes:
-mvn install
-dans le répertoire du projet.
 
-Mowers utilise Spring MVC, avec des controlleurs pour les Surfaces, les Unités, les RoundOrders.
-Le déployment sous un serveur Tomcat local peut se faire avec la commande:
-mvn tomcat:deploy (ou mvn tomcat:redeploy)
+##Description technique du projet##
 
-Des tests unitaires sont écrits, que l'on peut lancer à l'aide d'eclipse ('Run configuration' de type JUnit) ou de maven (mvn test).
+L'application Mowers est réalisé sous forme de projet Maven2. 
+Elle utilise Spring MVC, avec des controlleurs pour les Surfaces, les Unités, les RoundOrders.
+
 La lancement de l'application sous eclipse ou en ligne de commande prend en argument un nom de fichier qui doit se situer dans le dossier
 mowers/src/main/config. Ce fichier contient les instructions d'entrées telles que définies ci-dessus.
 Par défault il s'agit du fichier input.txt
 
 
 Coté MCV, des méthodes REST sont disponibles pour les Surfaces et les Unités
-Pour tester le controller Surface controller, à partir du plugin firefox Mozilla Rest Client, avec les paramètres suivants:
+
+
+##Installation et lancement de l'application##
+
+Le projet est disponible sur github à l'adresse suivante: 
+[https://github.com/karakoum/mowers](https://github.com/karakoum/mowers)
+
+Pour générer une archive war déployable (*mowers.war*), il suffit en principe de  lancer la commande maven suivante, depuis le répertoire du projet:
+
+	mvn clean install	
+
+
+Des tests unitaires sont écrits, que l'on peut lancer à l'aide d'eclipse ('Run configuration' de type JUnit) ou de maven (mvn test).
+
+
+Une fois déployé (sous Tomcat, par exemple), il est possible de tester l'API REST de l'application, en utilisant par exemple le navigateur Firefox avec le plugin firefox Mozilla Rest Client (mon projet est de réaliser un client sous Angular.js réalisant ces appels).
+Voici les jeux de paramètres pour les appels sur les Surfaces et les unités:
+
+****Remarque**: les urls spécifiées ci-dessous sont valable pour une installation de l'application mowers sur la machine du navigateur, il faudra la cas échéant remplacer localhost:8080 par l'url correspondant au serveur sur lequel le projet a été déployé.*
 
 **Interface REST sur les surfaces**  
 GET (Liste)
@@ -170,7 +184,7 @@ Les annotations ci-dessus permettent au parser Jackson d'utiliser la valeur de c
 Les constructeurs des classes héritées de Unit vont fournir la valeur adéquate (type="mower" pour la classe Mower).
 
 
-### Supression d'un élément dans mongoDB ###
+### Suppression d'un élément dans mongoDB ###
 En réalisant mes tests unitaires, j'ai constaté que la méthode remove de mongoDB ne fonctionnait pas:
 
     mongoOperation.remove(surface, "surfaces");

@@ -118,6 +118,7 @@
 	</dependencies>
 
 	<build>
+		<finalName>mowers</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
