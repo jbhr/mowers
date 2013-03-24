@@ -1,0 +1,31 @@
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="span2">
+      <!--Sidebar content-->
+		
+		
+      Recherche: <input ng-model="query">
+      trier par:
+      <select ng-model="orderProp">
+        <option value="name">Alphabet</option>
+        <option value="mWidth">Taille</option>
+      </select>
+
+    </div>
+    <div class="span10">
+      <!--Body content-->
+
+      <ul class="surfaces">
+      	{{data}}
+	{{status}}
+	
+        <li ng-repeat="surface in surfaces | filter:query | orderBy:orderProp" class="thumbnail">
+          <a href="#/surface/{{surface.id}}">{{surface.name}}</a>
+          <p>{{surface.type}}</p>
+          <p>{{surface.mWidth}}x{{surface.mHeight}}</p>
+        </li>
+      </ul>
+
+    </div>
+  </div>
+</div>

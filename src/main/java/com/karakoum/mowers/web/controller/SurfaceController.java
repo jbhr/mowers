@@ -29,48 +29,49 @@ import com.karakoum.mowers.service.SurfaceService;
 @RequestMapping("/surface")
 public class SurfaceController extends BaseController {
 		
-		@Autowired 
-	    SurfaceService surfaceService;
-		
-		public SurfaceService getSurfaceService() {
-			return surfaceService;
-		}
-		
-		public void setSurfaceService(SurfaceService surfaceService) {
-			this.surfaceService = surfaceService;
-		}
-		
-		static Logger log = Logger.getLogger(Mowers.class.getName());
-		
-		
-	    @RequestMapping(method = RequestMethod.GET, produces = "application/json")
-	    public @ResponseBody List<Surface> list() {
-	    	return surfaceService.findAll();
-	    }
 
-	    @RequestMapping(value = "{objectId}", method = RequestMethod.GET, consumes="application/json", produces = "application/json")
-	    public @ResponseBody Surface getById(@PathVariable String objectId) {
-	    	return surfaceService.findById(objectId);
-	    }
-	    
-	    @RequestMapping(value = "{objectId}", method = RequestMethod.PUT, consumes="application/json")
-	    @ResponseStatus(HttpStatus.NO_CONTENT)
-	    public void update(@PathVariable String objectId,@RequestBody Jardin surface) {
-	    	surface.setId(objectId);
-	    	surfaceService.saveOrUpdate(surface);
-	    }
-	    
-	    @RequestMapping(method = RequestMethod.POST, consumes="application/json")
-	    @ResponseStatus(HttpStatus.NO_CONTENT)
-	    public void create(@RequestBody Jardin surface) {
-	    	log.debug("SurfaceController create action called");
-	    	surfaceService.saveOrUpdate(surface);
-	    }
-	    
-	    @RequestMapping(value = "{objectId}", method = RequestMethod.DELETE)
-	    @ResponseStatus(HttpStatus.NO_CONTENT)
-	    public void delete(@PathVariable String objectId) {
-	    	surfaceService.deleteById(objectId);
-	    }
+	static Logger log = Logger.getLogger(Mowers.class.getName());
+	
+	@Autowired 
+    SurfaceService surfaceService;
+	
+	public SurfaceService getSurfaceService() {
+		return surfaceService;
+	}
+	
+	public void setSurfaceService(SurfaceService surfaceService) {
+		this.surfaceService = surfaceService;
+	}
+	
+	
+    @RequestMapping(method = RequestMethod.GET, produces = "application/json")
+    public @ResponseBody List<Surface> list() {
+    	return surfaceService.findAll();
+    }
+
+    @RequestMapping(value = "{objectId}", method = RequestMethod.GET, produces = "application/json")
+    public @ResponseBody Surface getById(@PathVariable String objectId) {
+    	return surfaceService.findById(objectId);
+    }
+    
+    @RequestMapping(value = "{objectId}", method = RequestMethod.PUT, consumes="application/json")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void update(@PathVariable String objectId,@RequestBody Jardin surface) {
+    	surface.setId(objectId);
+    	surfaceService.saveOrUpdate(surface);
+    }
+    
+    @RequestMapping(method = RequestMethod.POST, consumes="application/json")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void create(@RequestBody Jardin surface) {
+    	log.debug("SurfaceController create action called");
+    	surfaceService.saveOrUpdate(surface);
+    }
+    
+    @RequestMapping(value = "{objectId}", method = RequestMethod.DELETE)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable String objectId) {
+    	surfaceService.deleteById(objectId);
+    }
 
 }

@@ -29,6 +29,16 @@
     <url-pattern>/rest/*</url-pattern>
 </servlet-mapping>
 
+<filter>
+	<filter-name>cors</filter-name>
+	<filter-class>com.thetransactioncompany.cors.CORSFilter</filter-class>
+</filter>
+
+<filter-mapping>
+	<filter-name>cors</filter-name>
+	<url-pattern>/*</url-pattern>
+</filter-mapping>
+
     <!-- ================================================================================ -->
     <!-- WEBAPP Config -->
     <!-- ================================================================================ -->

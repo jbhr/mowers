@@ -65,7 +65,7 @@ Le domaine est composé de 3 types d'entités (en italique, les classes abstrait
 
 
 
-##Description technique du projet##
+##Environnement technique du projet##
 
 L'application Mowers est réalisé sous forme de projet Maven2. 
 Elle utilise Spring MVC, avec des controlleurs pour les Surfaces, les Unités, les RoundOrders.
@@ -94,7 +94,6 @@ Des tests unitaires sont écrits, que l'on peut lancer à l'aide d'eclipse ('Run
 Une fois déployé (sous Tomcat, par exemple), il est possible de tester l'API REST de l'application, en utilisant par exemple le navigateur Firefox avec le plugin firefox Mozilla Rest Client (mon projet est de réaliser un client sous Angular.js réalisant ces appels).
 Voici les jeux de paramètres pour les appels sur les Surfaces et les unités:
 
-****Remarque**: les urls spécifiées ci-dessous sont valable pour une installation de l'application mowers sur la machine du navigateur, il faudra la cas échéant remplacer localhost:8080 par l'url correspondant au serveur sur lequel le projet a été déployé.*
 
 **Interface REST sur les surfaces**  
 GET (Liste)
@@ -139,8 +138,12 @@ Header HTTP: "charset: utf-8"
 Body HTTP: -
 
 
+****Remarque 1**: les urls spécifiées ci-dessous sont valable pour une installation de l'application mowers sur la machine du navigateur, il faudra la cas échéant remplacer localhost:8080 par l'url correspondant au serveur sur lequel le projet a été déployé.*
 
 
+## Test de l'application ##
+Une application de test (avec le serveur Spring MVC / MongoDB et le client intégré dans la vue, sous Angular.js), utilisant les appels GET sur les surfaces uniquement est disponible sur l'URL:
+[http://ns25486.karakoum.com:8080/mowers](http://ns25486.karakoum.com:8080/mowers)
 
 ## Considérations techniques - difficultés rencontrées ##
 
@@ -218,8 +221,20 @@ il ne faut pas oublier de préciser les headers suivants:
 No suitable constructor found for type [simple type, class ] (dans les logs): apparemment il est nécessaire de définir un constructeur par défaut, sans paramètres.
 
 
-### Roadmap du projet ###
-Travailler sur le projet 'client', avec angular.js. A priori ce sera un projet eclipse distinct, qui utilisera JSON pour communiquer avec l'application backend Spring MVC (interfaces spécifiées dans le tableau précédant).
+### Mise en place d'un client angular.js ###
+Pour le moment je ne suis pas parvenu à faire fonctionner les requêtes REST sur client Mowerscli (sous angular.js). Le problème vient des limitations sur les requêtes Ajax entre des domaines différents (www.mowerscli.com et ns25486.karakoum.com:8080).
+La solutino consiste à mettre en place la gestion du mécanisme CORS (Cross-origin resource sharing) côté serveur Spring, ce que j'ai pu faire en installant la librairie com.thetransactioncompany.cors-filter. Cependant il faut également mettre en place le mécanisme côté client, ce qui me pose encore des problèmes.
+En attendant, j'ai installé le client en l'intégrant dans les vues du projet serveur, ce qui fonctionne à défault d'être complétement satisfaisant: je préfère séparer complètement les 2 projets, ce qui me permettrait entre autres avantages de déployer le project client sans avoir à redéployer le serveur complet.
+
+
+
+## TODO du projet ##
+1. Mettre en place des profils sur le projet Maven, pour pouvoir déployer facilement l'application sur le serveur de "Production".
+1. Faire fonctionner le client angular.js sur un domaine distinct du backend Spring MVC; il faut résoudre les difficultés (limitations sur les requêtes Ajax cross domain) en faisant fonctionner le mécanisme CORS (Cross-origin resource sharing).
+1. Compléter le client avec des formulaires permettant de modifier des surfaces ou des unités (modifier le nom...).
+1. Compléter le client en mettant en place un mécanisme d'authentification simple.
+1. Compléter le client en mettant en place une grille visuelle correspondant à la surface, avec les unités visibles dessus. Mettre en place une interface permettant de déplacer les unités, ou de transmettre des séries d'ordres sur chaque unité.
+1. 
 
 
 ### Références ###
@@ -227,4 +242,3 @@ Travailler sur le projet 'client', avec angular.js. A priori ce sera un projet e
 - [Spring Data MongoDB (Documentation Springsource.org)](http://www.springsource.org/spring-data/mongodb)
 - [Tutorial : REST with Spring MVC and Maven (16 mars 2012, David Gimelle)](http://getj2ee.over-blog.com/article-tutorial-rest-with-spring-mvc-and-maven-97283997.html)
 - [REST in Spring 3: @MVC (Arjen Poutsma, 08/03/2009)](http://blog.springsource.com/2009/03/08/rest-in-spring-3-mvc)
-
